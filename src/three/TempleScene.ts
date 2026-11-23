@@ -880,21 +880,21 @@ export class TempleSceneController {
       const worldCenterX = TRACK_CENTER_X[pId];
 
       if (isSelect) {
-        cam.position.set(worldCenterX, 2.22, 6.85);
-        cam.fov = 44;
+        cam.position.set(worldCenterX, 2.08, 6.25);
+        cam.fov = 43;
         cam.updateProjectionMatrix();
-        _lookTarget.set(worldCenterX, 1.38, 2.5);
+        _lookTarget.set(worldCenterX, 1.32, 2.5);
         cam.lookAt(_lookTarget);
       } else if (state.phase === 'gameover' && state.winnerId === pId) {
         const orbitAngle = this.elapsedVisualTime * 0.65;
         _camGoal.set(
-          worldCenterX + playerWorldX + Math.sin(orbitAngle) * 4.8,
-          2.75,
-          playerWorldZ + Math.cos(orbitAngle) * 4.8,
+          worldCenterX + playerWorldX + Math.sin(orbitAngle) * 4.4,
+          2.55,
+          playerWorldZ + Math.cos(orbitAngle) * 4.4,
         );
         const alpha = 1 - Math.exp(-5 * dt);
         cam.position.lerp(_camGoal, alpha);
-        _lookTarget.set(worldCenterX + playerWorldX, 1.45, playerWorldZ);
+        _lookTarget.set(worldCenterX + playerWorldX, 1.38, playerWorldZ);
         cam.lookAt(_lookTarget);
       } else if (player.activeTrivia) {
         _camGoal.set(worldCenterX + playerWorldX * 0.4 + 1.35, 3.3, playerWorldZ + 5.8);
@@ -908,9 +908,9 @@ export class TempleSceneController {
         const shakeY = (Math.random() - 0.5) * shake * 0.4;
 
         _camGoal.set(
-          worldCenterX + playerWorldX * 0.62 + shakeX,
-          4.15 + player.y * 0.35 + shakeY,
-          playerWorldZ + 7.4,
+          worldCenterX + playerWorldX * 0.66 + shakeX,
+          3.65 + player.y * 0.35 + shakeY,
+          playerWorldZ + 6.0,
         );
         const alpha = 1 - Math.exp(-11 * dt);
         if (cam.position.distanceTo(_camGoal) > 25) {
@@ -919,13 +919,13 @@ export class TempleSceneController {
           cam.position.lerp(_camGoal, alpha);
         }
 
-        const targetFov = 58 + (player.speed / Math.max(1, state.config.baseSpeed)) * 8.5;
+        const targetFov = 56 + (player.speed / Math.max(1, state.config.baseSpeed)) * 8.0;
         if (Math.abs(cam.fov - targetFov) > 0.08) {
           cam.fov += (targetFov - cam.fov) * (1 - Math.exp(-8 * dt));
           cam.updateProjectionMatrix();
         }
 
-        _lookTarget.set(worldCenterX + playerWorldX * 0.35, 1.55 + player.y * 0.2, playerWorldZ - 11);
+        _lookTarget.set(worldCenterX + playerWorldX * 0.38, 1.48 + player.y * 0.2, playerWorldZ - 11.5);
         cam.lookAt(_lookTarget);
       }
 
